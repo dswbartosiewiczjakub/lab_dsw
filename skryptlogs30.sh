@@ -1,15 +1,21 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
-  echo "Podaj liczbę plików jako argument."
-  exit 1
+if [ "$#" -ne 1 ]; then
+    echo "Użycie: $0 --logs <liczba_plików>"
+    exit 1
 fi
 
-num_files=$1
+if [ "$1" != "--logs" ]; then
+    echo "Użycie: $0 --logs <liczba_plików>"
+    exit 1
+fi
 
-for ((i=1; i<=num_files; i++)); do
-    filename="log${i}.txt"
-    echo "Nazwa pliku: ${filename}" > "${filename}"
-    echo "Nazwa skryptu: skrypt.sh --logs ${num_files}" >> "${filename}"
-    echo "Data: $(date)" >> "${filename}"
+logs=$2
+
+for ((i=1; i<=logs; i++))
+do
+    filename="plik$i.txt"
+    touch "$filename"
+    echo "Utworzono plik: $filename"
 done
+
